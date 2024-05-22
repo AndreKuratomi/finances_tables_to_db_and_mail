@@ -225,12 +225,6 @@ code .
 ```
 <br>
 
-<h3>4. Create <b>env</b> file:</h3>
-
-```
-touch .env
-```
-
 
 <h3>4. Create <b>.env</b> file:</h3>
 
