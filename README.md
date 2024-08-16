@@ -1,6 +1,6 @@
 # finances_table_to_db_and_mail
 
-- [Translates](#translates)
+- [Translations](#translations)
 - [About](#About)
 - [Description](#Description)
 - [Instalation](#instalation)
