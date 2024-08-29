@@ -57,9 +57,9 @@ Now it is time to use <strong>Selenium</strong> again. From every single model's
 
 If found, they're selected, downloaded and moved to an application's folder called 'attachments/'. Then, an email is created using django's <strong>EmailMessage</strong> with this files attached to it and sent to the client. A copy of this email may be sent to the company's email if configured in django's 'settings'. If the email is succesfully sent the successful cases ('Sent') report is fed with the client's ID (brazilian's CNPJ) and its invoice's number (brazilian's NFE) and a message is displayed in .bat's terminal: 
 
-´´´
+```
 "Email successfully sent! Check inbox."
-´´´
+```
 
 If not found or something else fails, the unsuccesful cases ('Not sent') report is fed with this same client's info and another message is displayed in .bat's terminal:
 
