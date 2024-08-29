@@ -29,7 +29,9 @@ This application uses <strong>[Python](https://www.python.org/downloads/)</stron
 
 Everyone may operate this application, but its configuration may be done only after reading - [A detailed description](#a-detailed-description). 
 
-This application is manually started by clicking twice the <strong>.bat</strong> file 'script_for_bat_file.bat' that can be placed anywhere in the user's computer. The user doesn't need to do anything else but he can occasionally open the terminal created by the .bat file during the process and read the messages displayed. A brief description of how this application works bellow:
+This application is manually started by clicking twice the <strong>.bat</strong> file 'script_for_bat_file.bat' that can be placed anywhere in the user's computer. The user doesn't need to do anything else but he can occasionally open the terminal created by the .bat file during the process and read the messages displayed. 
+
+Bellow a brief description of how this application works:
 
 <b>finances_table_to_db_and_mail</b> application works with 3 different sharepoint's folders* (ordered by year and month):
 
@@ -37,7 +39,7 @@ This application is manually started by clicking twice the <strong>.bat</strong>
     2. Client's monthly invoices and bills
     3. Reports
 
-* This folder's links bust be provided in advance for configuration to make the application work.
+*This folder's links bust be provided in advance for configuration to make the application work.
 
 The application first looks for 2 base <strong>TOTVS</strong> spreadsheets (client's contact data (email) and other client's data (ID, invoice number, etc) respectively) of the current month in Client's data folder using <strong>Selenium</strong>. If found, these spreadsheets are downloaded in an application specific folder called <b>'raw_table/'</b>.
 
