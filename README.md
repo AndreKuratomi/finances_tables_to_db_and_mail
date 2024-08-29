@@ -48,6 +48,7 @@ The application first looks for 2 base spreadsheets (client's contact data (emai
 <h3>Downloaded table's management:</h3>
 After downloading it the application uses <strong>OpenPyXL</strong> to extract relevant data from specific columns of the downloaded spreadsheets. With these extractions a third spreadsheet is created also with some new columns and placed in another application folder called 'edited_table/'. From the edited_table's spreadsheet the application uses <strong>Pandas</strong> to insert it in a <strong>SQLite3</strong> database.
 
+
 With a database created the <strong>Django</strong>* framework comes to scene. This framework will be responsible with the database lines' management. The command <strong>inspectdb</strong> extracts <strong>SQLite3</strong>'s content and creates a model from it and the view 'EmailAttachByTable' works with this model aligned with <strong>Selenium</strong>.
 
 *The application <b>finances_table_to_db_and_mail</b> doesn't use Django's server or any endpoint or url from it, but just its model and a single view instantiated out of its projects' folder.
