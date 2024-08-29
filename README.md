@@ -4,6 +4,7 @@
 - [About](#About)
 - [A brief description](#a-brief-description)
 - [A detailed description](#a-detailed-description)
+- [Application's behaviour by case](#application's-behaviour-by-case)
 - [Instalation](#instalation)
 - [Commands](#Commands)
 - [References](#references)
@@ -41,14 +42,17 @@ Bellow a brief description of how this application works:
 
 *This folder's links bust be provided in advance for configuration to make the application work.
 
-The application first looks for 2 base <strong>TOTVS</strong> spreadsheets (client's contact data (email) and other client's data (ID, invoice number, etc) respectively) of the current month in Client's data folder using <strong>Selenium</strong>. If found, these spreadsheets are downloaded in an application specific folder called <b>'raw_table/'</b>.
+<h3>Base tables' download:</h3>
+The application first looks for 2 base spreadsheets (client's contact data (email) and other client's data (ID, invoice number, etc) respectively) of the current month in <b>Client's data</b> folder using <strong>Selenium</strong>. If found, these spreadsheets are downloaded in an application's specific folder called <b>'raw_table/'</b>.
 
+<h3>Downloaded table's management:</h3>
 After downloading it the application uses <strong>OpenPyXL</strong> to extract relevant data from specific columns of the downloaded spreadsheets. With these extractions a third spreadsheet is created also with some new columns and placed in another application folder called 'edited_table/'. From the edited_table's spreadsheet the application uses <strong>Pandas</strong> to insert it in a <strong>SQLite3</strong> database.
 
 With a database created the <strong>Django</strong>* framework comes to scene. This framework will be responsible with the database lines' management. The command <strong>inspectdb</strong> extracts <strong>SQLite3</strong>'s content and creates a model from it and the view 'EmailAttachByTable' works with this model aligned with <strong>Selenium</strong>.
 
 *The application <b>finances_table_to_db_and_mail</b> doesn't use Django's server or any endpoint or url from it, but just its model and a single view instantiated out of its projects' folder.
 
+<h3>Client's invoices and bills download and email sent:</h3>
 Now it is time to use <strong>Selenium</strong> again. From every single model's row Django's view takes specific data and feeds Selenium. From each line Selenium goes back to the company's sharepoint in <b>Client's monthly invoices and bills</b> folder and looks for this data, which are pdfs and another spreadsheets. 
 
 If found, they're selected, downloaded and moved to an application's folder called 'attachments/'. Then, an email is created using django's <strong>EmailMessage</strong> with this files attached to it and sent to the client. A copy of this email may be sent to the company's email if configured in django's 'settings'. If the email is succesfully sent the successful cases ('Sent') report is fed with the client's ID (brazilian's CNPJ) and its invoice's number (brazilian's NFE) and a message is displayed in .bat's terminal: 
@@ -71,7 +75,10 @@ or
 
 Or another error identified.
 
-This process is made for every single client. At the end of it, the tables inside 'raw_table/' are deleted and a message is displayed in .bat's terminal:
+This process is made for every single client. 
+
+<h3>At the end of the process:</h3>
+At the end of it, the tables inside 'raw_table/' are deleted and a message is displayed in .bat's terminal:
 
 ```
 "Application finished its process succesfully!"
@@ -82,11 +89,13 @@ The successful and unsuccessful reports' info are extracted and placed in a thir
 With the 'raw_table/' folder emptied the application will look for the 2 base spreadsheets in <b>Client's data</b> folder again when manually restarted. These 2 may have updated or new data.
 If the new base spreadsheets contain new data the application already have files to compare what is new and what is not and feed the 'edited_table/''s spreadsheet, which is not deleted at the end of a process, with new data.
 
-When the month changes, there is another 
+<h3>When the month changes:</h3>
+This application is designed to operate at the beggining and during the month. When it changes something else must be done: in the application's folder there is a file named "DELETE_ME_BEFORE_FIRST_MONTH_OPERATION.txt" that must be deleted before starting the first process of the month. Its deletion will delete all the application's tables and its reports. More about that in 
+
 
 <br>
 
-## A brief description
+## A detailed description
 
 <h3>Summary process</h3>
 
@@ -111,7 +120,7 @@ When not found, the application follows up looking for other attachments.
 
 The found and not found attachments are registered in text files at './finances_table_to_db_and_mail/robot_sharepoint/reports/'. When the process is ended or interrupted it is automatically created a a third text file that gathers the first two. This third text file is sent to sharepoint as report of the operaion even if it is not finalized.
 
-<h3>Case studies</h3>
+## Application's behaviour by case:
 
 Bellow a resumed list of the application behaviour by case:
 
