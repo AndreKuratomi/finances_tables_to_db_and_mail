@@ -3,6 +3,7 @@
 - [Translations](#translations)
 - [About](#About)
 - [A brief description](#a-brief-description)
+- [A detailed description](#a-detailed-description)
 - [Instalation](#instalation)
 - [Commands](#Commands)
 - [References](#references)
@@ -18,7 +19,7 @@
 
 ## About
 
-<p>The application <b>finances_table_to_db_and_mail</b> was developed to automatise monthly email sent of invoices and bills to a company clients. It works with the company <strong>sharepoint</strong>'s folders, emails elaboration with files attachment and reports elaboration of succesfull and non-successfull cases. This application is made to non-developers operate it. 
+<p>The application <b>finances_table_to_db_and_mail</b> was developed to automatise monthly email sent of invoices and bills to a company clients. It works with the company <strong>sharepoint</strong>'s folders, emails elaboration with files attachment and reports elaboration of succesfull and non-successfull cases. This application is made to non-developers operate it and can be used once a month or more according to the demand. It is only runned manually for this version.
 
 This application uses <strong>[Python](https://www.python.org/downloads/)</strong>'s framework <strong>[Django](https://www.djangoproject.com/)</strong>, the libs <strong>[OpenPyXl](https://openpyxl.readthedocs.io/en/stable/tutorial.html)</strong>, <strong>[Pandas](https://pandas.pydata.org/docs/)</strong> and <strong>[Selenium](https://pypi.org/project/selenium/)</strong>, the <strong>[SQLite3](https://docs.python.org/3/library/sqlite3.html)</strong> database and a windows .bat file that runs the whole application.
 
@@ -26,13 +27,17 @@ This application uses <strong>[Python](https://www.python.org/downloads/)</stron
 
 ## A brief description
 
-Everyone may operate this application. It is manually started by clicking twice the <strong>.bat</strong> file 'script_for_bat_file.bat' that can be placed anywhere in the user's computer. The user doesn't need to do anything else but he can occasionally open the terminal created by the .bat file during the process and read the messages displayed. A brief description of how this application works bellow:
+Everyone may operate this application, but its configuration may be done only after reading - [A detailed description](#a-detailed-description). 
 
-<b>finances_table_to_db_and_mail</b> application works with 3 different sharepoint's folders (ordered by year and month):
+This application is manually started by clicking twice the <strong>.bat</strong> file 'script_for_bat_file.bat' that can be placed anywhere in the user's computer. The user doesn't need to do anything else but he can occasionally open the terminal created by the .bat file during the process and read the messages displayed. A brief description of how this application works bellow:
+
+<b>finances_table_to_db_and_mail</b> application works with 3 different sharepoint's folders* (ordered by year and month):
 
     1. Client's data
     2. Client's monthly invoices and bills
     3. Reports
+
+* This folder's links bust be provided in advance for configuration to make the application work.
 
 The application first looks for 2 base <strong>TOTVS</strong> spreadsheets (client's contact data (email) and other client's data (ID, invoice number, etc) respectively) of the current month in Client's data folder using <strong>Selenium</strong>. If found, these spreadsheets are downloaded in an application specific folder called <b>'raw_table/'</b>.
 
@@ -71,6 +76,15 @@ This process is made for every single client. At the end of it, the tables insid
 ```
 
 The successful and unsuccessful reports' info are extracted and placed in a third report which is sent to sharepoint's Reports folder by Selenium.
+
+With the 'raw_table/' folder emptied the application will look for the 2 base spreadsheets in <b>Client's data</b> folder again when manually restarted. These 2 may have updated or new data.
+If the new base spreadsheets contain new data the application already have files to compare what is new and what is not and feed the 'edited_table/''s spreadsheet, which is not deleted at the end of a process, with new data.
+
+When the month changes, there is another 
+
+<br>
+
+## A brief description
 
 <h3>Summary process</h3>
 
