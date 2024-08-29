@@ -2,7 +2,7 @@
 
 - [Translations](#translations)
 - [About](#About)
-- [Description](#Description)
+- [A brief description](#a-brief-description)
 - [Instalation](#instalation)
 - [Commands](#Commands)
 - [References](#references)
@@ -18,22 +18,40 @@
 
 ## About
 
-<p>The application <b>python_django_tables_filter_mail</b> that manipulates spreadsheets, extracts its lines to look for its content in <strong>sharepoint</strong> folders, downloads it when found and attaches it to emails to send to clients.
+<p>The application <b>finances_table_to_db_and_mail</b> was developed to automatise monthly email sent of invoices and bills to a company clients. It works with the company <strong>sharepoint</strong>'s folders, emails elaboration with files attachment and reports elaboration of succesfull and non-successfull cases.
 
-
-The application <strong>finances_table_to_db_and_mail</strong> is purposed to search and dowload files from sharepoint to be attached and sent by email from a given spreadsheet. During this process it is also sent to sharepoint a report describing its succesfull ands non-successfull cases.
-
-This application uses <strong>Python</strong>'s framework <strong>[Django](https://www.djangoproject.com/)</strong>, the libs <strong>[OpenPyXl](https://openpyxl.readthedocs.io/en/stable/tutorial.html)</strong>, <strong>[Pandas](https://pandas.pydata.org/docs/)</strong> and <strong>[Selenium](https://pypi.org/project/selenium/)</strong> and the <strong>[SQLite3](https://docs.python.org/3/library/sqlite3.html)</strong> database.
+This application uses <strong>[Python](https://www.python.org/downloads/)</strong>'s framework <strong>[Django](https://www.djangoproject.com/)</strong>, the libs <strong>[OpenPyXl](https://openpyxl.readthedocs.io/en/stable/tutorial.html)</strong>, <strong>[Pandas](https://pandas.pydata.org/docs/)</strong> and <strong>[Selenium](https://pypi.org/project/selenium/)</strong>, the <strong>[SQLite3](https://docs.python.org/3/library/sqlite3.html)</strong> database and a windows .bat file that runs the whole application.
 
 <br>
 
-## Description
+## A brief description
 
-<b>finances_table_to_db_and_mail</b> is the automatization of spreadsheet analisys, search on sharepoint for by period, UserID and NFE number. 
+<b>finances_table_to_db_and_mail</b> application works with 3 different sharepoint's folders (ordered by year and month):
+
+    1. Client's data
+    2. Client's monthly invoices and bills
+    3. Reports
+
+The application first looks for 2 base <strong>TOTVS</strong> spreadsheets (client's contact data (email) and other client's data (ID, invoice number, etc) respectively) of the current month in Client's data folder using <strong>Selenium</strong>. If found, these spreadsheets are downloaded in a application specific folder called <b>'raw_table/'</b>.
+
+After downloading it the application uses <strong>OpenPyXL</strong> to extract relevant data from specific columns from the downloaded spreadsheets. With these extractions a third spreadsheet is created also with some new columns, we're going to check it out later, and placed in another application folder called 'edited_table/'. From the edited_table spreadsheet the application uses <strong>Pandas</strong> to insert it in a <strong>SQLite3</strong> database.
+
+With a database created the <strong>Django</strong>* framework comes to scene. This framework will be responsible with the database lines' management. The command <strong>inspectdb</strong> extracts <strong>SQLite3</strong>'s content and creates a model from it and the view 'EmailAttachByTable' works with this model aligned with <strong>Selenium</strong>.
+
+*The application <b>finances_table_to_db_and_mail</b> doesn't use Django's server or any endpoint or url from it, but just its model and a single view instantiated out of its projects' folder.
+
+Now it is time to use <strong>Selenium</strong> again. From every single model's row Django's view takes specific data and feeds Selenium. From each line Selenium goes back to sharepoint in <b>Client's monthly invoices and bills</b> folder and looks for this data, which are pdfs and another spreadsheets. 
+
+If found, they're selected, downloaded and moved to an application's folder called 'attachments/'. Then, an email is created using django's <strong>EmailMessage</strong> with this files attached to it and sent to the client. If the email is succesfully sent the successful cases report is fed with the client's ID (brazilian's CNPJ) and its invoice's number (brazilian's NFE).
+
+If not found, the unsuccesful cases report is fed with this same client's info.
+
+nd is the automatization of spreadsheet analisys, search on sharepoint for by period, UserID and NFE number. 
+It downloads spreadsheets from 's finances company, extracts from them relevant content creating a new spreasheet and from it looks for its content in sharepoint's folders, downloads it when found and attaches to emails to send to clients. During this process are also created reports describing  and at the end of the process they are sent to sharepoint's reports folder.
 
 <h3>Summary process</h3>
 
-The whole application can be runned at the root directory bu the script './run_everything_here.py' or by the .bat file 'script_for_bat_file.bat'.
+The whole application can be runned at the root directory by the script './run_everything_here.py' or by the .bat file 'script_for_bat_file.bat'.
 
 It firstly inserts in the given table in 'raw_table/' a 'STATUS' column using <b>OpenPyXl</b> and saves it in 'edited_table/', after that it transforms the edited spreadsheet into a dataframe using <b>Pandas</b> and it is filtered by specific columns and inserts a new column 'ID'. 
 
