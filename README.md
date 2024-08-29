@@ -4,7 +4,7 @@
 - [About](#About)
 - [A brief description](#a-brief-description)
 - [A detailed description](#a-detailed-description)
-- [Application's behaviour by case](#application's-behaviour-by-case)
+- [Application's behaviour by case](#applications-behaviour-by-case)
 - [Instalation](#instalation)
 - [Commands](#Commands)
 - [References](#references)
@@ -28,7 +28,7 @@ This application uses <strong>[Python](https://www.python.org/downloads/)</stron
 
 ## A brief description
 
-Everyone may operate this application, but its configuration may be done only after reading - [A detailed description](#a-detailed-description). 
+Everyone may operate this application, but its configuration may be done only after reading [A detailed description](#a-detailed-description). 
 
 This application is manually started by clicking twice the <strong>.bat</strong> file 'script_for_bat_file.bat' that can be placed anywhere in the user's computer. The user doesn't need to do anything else but he can occasionally open the terminal created by the .bat file during the process and read the messages displayed. 
 
@@ -40,7 +40,7 @@ Bellow a brief description of how this application works:
     2. Client's monthly invoices and bills
     3. Reports
 
-*This folder's links bust be provided in advance for configuration to make the application work.
+*This folder's links bust be provided in advance for configuration to make the application work. More about that read [Instalation](#instalation)'s .env file.
 
 <h3>Base tables' download:</h3>
 The application first looks for 2 base spreadsheets (client's contact data (email) and other client's data (ID, invoice number, etc) respectively) of the current month in <b>Client's data</b> folder using <strong>Selenium</strong>. If found, these spreadsheets are downloaded in an application's specific folder called <b>'raw_table/'</b>.
@@ -90,12 +90,13 @@ With the 'raw_table/' folder emptied the application will look for the 2 base sp
 If the new base spreadsheets contain new data the application already have files to compare what is new and what is not and feed the 'edited_table/''s spreadsheet, which is not deleted at the end of a process, with new data.
 
 <h3>When the month changes:</h3>
-This application is designed to operate at the beggining and during the month. When it changes something else must be done: in the application's folder there is a file named "DELETE_ME_BEFORE_FIRST_MONTH_OPERATION.txt" that must be deleted before starting the first process of the month. Its deletion will delete all the application's tables and its reports. More about that in 
-
+This application is designed to operate at the beggining and during the month. When it changes something else must be done: in the application's folder there is a file named "DELETE_ME_BEFORE_FIRST_MONTH_OPERATION.txt" that must be deleted before starting the first process of the month. Its deletion will delete all the application's tables and its reports. More about that in [Application's behaviour by case](#applications-behaviour-by-case).
 
 <br>
 
 ## A detailed description
+
+This chapter is made for developers and for everyone that 
 
 <h3>Summary process</h3>
 
