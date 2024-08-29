@@ -4,7 +4,7 @@
 - [About](#About)
 - [A brief description](#a-brief-description)
 - [A detailed description](#a-detailed-description)
-- [Application's behaviour by case](#applications-behaviour-by-case)
+- [Application behaviour by case](#application-behaviour-by-case)
 - [Instalation](#instalation)
 - [Commands](#Commands)
 - [References](#references)
@@ -40,7 +40,7 @@ Bellow a brief description of how this application works:
     2. Client's monthly invoices and bills
     3. Reports
 
-*This folder's links bust be provided in advance for configuration to make the application work. More about that read [Instalation](#instalation)'s .env file.
+*This folder's links bust be provided in advance for configuration to make the application work. More about that read [Instalation](#instalation) 's .env file.
 
 <h3>Base tables' download:</h3>
 The application first looks for 2 base spreadsheets (client's contact data (email) and other client's data (ID, invoice number, etc) respectively) of the current month in <b>Client's data</b> folder using <strong>Selenium</strong>. If found, these spreadsheets are downloaded in an application's specific folder called <b>'raw_table/'</b>.
@@ -121,7 +121,7 @@ When not found, the application follows up looking for other attachments.
 
 The found and not found attachments are registered in text files at './finances_table_to_db_and_mail/robot_sharepoint/reports/'. When the process is ended or interrupted it is automatically created a a third text file that gathers the first two. This third text file is sent to sharepoint as report of the operaion even if it is not finalized.
 
-## Application's behaviour by case:
+## Application behaviour by case:
 
 Bellow a resumed list of the application behaviour by case:
 
