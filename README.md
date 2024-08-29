@@ -34,9 +34,9 @@ Everyone may operate this application. It is manually started by clicking twice 
     2. Client's monthly invoices and bills
     3. Reports
 
-The application first looks for 2 base <strong>TOTVS</strong> spreadsheets (client's contact data (email) and other client's data (ID, invoice number, etc) respectively) of the current month in Client's data folder using <strong>Selenium</strong>. If found, these spreadsheets are downloaded in a application specific folder called <b>'raw_table/'</b>.
+The application first looks for 2 base <strong>TOTVS</strong> spreadsheets (client's contact data (email) and other client's data (ID, invoice number, etc) respectively) of the current month in Client's data folder using <strong>Selenium</strong>. If found, these spreadsheets are downloaded in an application specific folder called <b>'raw_table/'</b>.
 
-After downloading it the application uses <strong>OpenPyXL</strong> to extract relevant data from specific columns from the downloaded spreadsheets. With these extractions a third spreadsheet is created also with some new columns and placed in another application folder called 'edited_table/'. From the edited_table's spreadsheet the application uses <strong>Pandas</strong> to insert it in a <strong>SQLite3</strong> database.
+After downloading it the application uses <strong>OpenPyXL</strong> to extract relevant data from specific columns of the downloaded spreadsheets. With these extractions a third spreadsheet is created also with some new columns and placed in another application folder called 'edited_table/'. From the edited_table's spreadsheet the application uses <strong>Pandas</strong> to insert it in a <strong>SQLite3</strong> database.
 
 With a database created the <strong>Django</strong>* framework comes to scene. This framework will be responsible with the database lines' management. The command <strong>inspectdb</strong> extracts <strong>SQLite3</strong>'s content and creates a model from it and the view 'EmailAttachByTable' works with this model aligned with <strong>Selenium</strong>.
 
@@ -44,11 +44,33 @@ With a database created the <strong>Django</strong>* framework comes to scene. T
 
 Now it is time to use <strong>Selenium</strong> again. From every single model's row Django's view takes specific data and feeds Selenium. From each line Selenium goes back to the company's sharepoint in <b>Client's monthly invoices and bills</b> folder and looks for this data, which are pdfs and another spreadsheets. 
 
-If found, they're selected, downloaded and moved to an application's folder called 'attachments/'. Then, an email is created using django's <strong>EmailMessage</strong> with this files attached to it and sent to the client. If the email is succesfully sent the successful cases report is fed with the client's ID (brazilian's CNPJ) and its invoice's number (brazilian's NFE).
+If found, they're selected, downloaded and moved to an application's folder called 'attachments/'. Then, an email is created using django's <strong>EmailMessage</strong> with this files attached to it and sent to the client. A copy of this email may be sent to the company's email if configured in django's 'settings'. If the email is succesfully sent the successful cases ('Sent') report is fed with the client's ID (brazilian's CNPJ) and its invoice's number (brazilian's NFE) and a message is displayed in .bat's terminal: 
 
-If not found or something else fails, the unsuccesful cases report is fed with this same client's info.
+´´´
+"Email successfully sent! Check inbox."
+´´´
 
-This process is made for every single client. At the end of it, 
+If not found or something else fails, the unsuccesful cases ('Not sent') report is fed with this same client's info and another message is displayed in .bat's terminal:
+
+```
+"No client found for {CNPJ}!"
+```
+
+or 
+
+```
+"No nfe found for {NFE}!"
+```
+
+Or another error identified.
+
+This process is made for every single client. At the end of it, the tables inside 'raw_table/' are deleted and a message is displayed in .bat's terminal:
+
+```
+"Application finished its process succesfully!"
+```
+
+The successful and unsuccessful reports' info are extracted and placed in a third report which is sent to sharepoint's Reports folder by Selenium.
 
 <h3>Summary process</h3>
 
