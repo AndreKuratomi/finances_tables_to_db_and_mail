@@ -81,6 +81,7 @@ This process is made for every single client.
 <h3>At the end of the process:</h3>
 At the end of it, the tables inside 'raw_table/' are deleted and a message is displayed in .bat's terminal:
 
+
 ```
 "Application finished its process succesfully!"
 ```
@@ -93,13 +94,14 @@ If the new base spreadsheets contain new data the application already have files
 <h3>When the month changes:</h3>
 This application is designed to operate at the beggining and during the month. When it changes something else must be done: in the application's folder there is a file named "DELETE_ME_BEFORE_FIRST_MONTH_OPERATION.txt" that must be deleted before starting the first process of the month. Its deletion will delete all the application's tables and its reports. More about that in [Applications behaviour by case](#applications-behaviour-by-case).
 
-For deep information or how the app works read the chapter below:
+
+For deep information for how the app works read the chapter below:
 
 <br>
 
 ## A detailed description
 
-This chapter is made for developers and for everyone that 
+This chapter is made for developers and for everyone that want to really understand how the app works and may be configured.
 
 <h3>Summary process</h3>
 
