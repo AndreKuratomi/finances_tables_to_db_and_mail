@@ -22,7 +22,9 @@
 
 <p>The application <b>finances_table_to_db_and_mail</b> was developed to automatise monthly email sent of invoices and bills to a company clients. It works with the company <strong>sharepoint</strong>'s folders, emails elaboration with files attachment and reports elaboration of succesfull and non-successfull cases. This application is made to non-developers operate it and can be used once a month or more according to the demand. It is only runned manually for this version.
 
-This application uses <strong>[Python](https://www.python.org/downloads/)</strong>'s framework <strong>[Django](https://www.djangoproject.com/)</strong>, the libs <strong>[OpenPyXl](https://openpyxl.readthedocs.io/en/stable/tutorial.html)</strong>, <strong>[Pandas](https://pandas.pydata.org/docs/)</strong> and <strong>[Selenium](https://pypi.org/project/selenium/)</strong>, the <strong>[SQLite3](https://docs.python.org/3/library/sqlite3.html)</strong> database and a windows .bat file that runs the whole application.
+This application was originally developed for Windows OS.
+
+This application uses <strong>[Python](https://www.python.org/downloads/)</strong>'s framework <strong>[Django](https://www.djangoproject.com/)</strong>, the libs <strong>[OpenPyXl](https://openpyxl.readthedocs.io/en/stable/tutorial.html)</strong>, <strong>[Pandas](https://pandas.pydata.org/docs/)</strong>, <strong>[Selenium](https://pypi.org/project/selenium/)</strong> as <strong>RPA</strong>, the <strong>[SQLite3](https://docs.python.org/3/library/sqlite3.html)</strong> database and a windows .bat file that runs the whole application.
 
 <br>
 
@@ -128,19 +130,58 @@ After this the script searches for the 2 base spreadsheets in the directory './m
 <h4>management_before_django/</h4>
 Everything from this directory is runned by the module '/table_managements/scripts/tables_to_db.py'. This 3 module instances manages tables content (1 filter_table_column), inserts the result in a SQLite3 database (2 insert_table_to_db) and creates a Django module form this database (3 create_model_from_database).
 
-<h5>1. filter_table_column</h5>
+<h5>1. filter_table_column:</h5>
 This module gathers all the functions that use <strong>OpenPyXL</strong> (check openpyxl and paths modules) to manipulate tables from 'raw_table/' and creates a third one to 'edited_table/' with new columns 'STATUS' and 'REFERENCES' and from it creates a <strong>Pandas</strong> dataframe.
 
-<h5>2. insert_table_to_db</h5>
+<h5>2. insert_table_to_db:</h5>
 Takes the dataframe created above and inserts it in a SQLite3 database in 'db/'.
 
-<h5>3. create_model_from_database</h5>
+<h5>3. create_model_from_database:</h5>
 From the database above creates a <b>Django</b> model using <strong>inspectdb</strong> command and inserts a new column 'id' to it. This makes <strong>Django</strong> able to use the container <strong>EmailMessage</strong> for creationg, attaching files and sending emails to clients. 
 
 <h4>robot_sharepoint</h4>
+This directory was made to store the functions that use <strong>Selenium</strong> as <strong>RPA</strong>s, called 'robots/', its auxiliary functions, called 'robot_utils/', and the reports themselves, called 'reports/'.
+
+<h5>robots/:</h5>
+There are 4 'robots' in this directory:
+
+robot_for_contacts_downloads (for searching and downloading spreadsheet that has clients' contacts' data)
+robot_for_database_downloads (idem for spreadsheet that has clients' other data - e.g. due date, net amount to pay, etc)
+robot_for_attachments_downloads (idem for files that will be attached to client's email)
+robot_to_upload_files (for final reports)
+
+All of these 4 'robots' need to login to sharepoint using email and password provided in <b>.env</b>, but they may have different approaches:
+
+<h6>Contacts and database download:</h6>
+These functions are used to download a single element per process. The contacts one doesn't work to year and month periods/folders while database does. Both of them uses the download_directories_management module inside 'robot_utils' that is going to be treated afterwards.
+
+<h6>Attachments download:</h6>
+This one downloads multiple elements and works with year and month periods/folders. Furthermore, for finding the desired files it uses the client's ID* (brazilian CNPJ) and invoice number (brazilian NFE). The downloaded files may have spreadsheets and/or bill pdfs, but all may have invoices. The same for download_directories_management module.
+
+*The same client ID may have different invoice numbers. So a single client may have more than one email sent by him.
+
+<h6>Files upload:</h6>
+This 'robot' takes the final report made after the end of the app's process and uploads it to a specific sharepoint folder and works with year and month periods/folders.
+
+<h5>robot_utils/:</h5>
+
+(At the time this application was developed it was not found any manner to download the selected files directly to the desired directories such as 'attachments/', but only to the default Windows' "Downloads". So the two functions described bellow served to remedying this issue.)
+
+Because of the issue described above on Windows OS and Selenium's configuration for 'webdriver.Edge' the download_directories_management module was made. It has  two functions:
+
+empty_download_directories (before Selenium tools are used this function is called to delete previous files downloaded the preventing system crashs)
+moving_files_from_virtual_dir (the downloaded files are moved from the default download dir to the desired one)
+
+<h5>reports/:</h5>
+
 <h4>dj_project</h4>
+
+
 <h4>utils</h4>
+
+
 <h4>tests</h4>
+
 
 <h3>Attachments</h3>
 
