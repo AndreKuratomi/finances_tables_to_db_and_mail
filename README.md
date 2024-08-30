@@ -123,7 +123,7 @@ This script runs all the application by running the module <b>tables_to_db</b> a
 
 But firstly the script looks for the file "DELETE_ME_BEFORE_FIRST_MONTH_OPERATION.txt" in the root dir. If not found, the script deletes all the tables present in the application and recreates the DELETE_ME file.
 
-After this the script searches for the 2 base spreadsheets in the directory './finances_table_to_db_and_mail/management_before_django/raw_table/'. If found the aplication follows up looking for attachments. If not, it uses the function 'robot_for_raw_table()' to search for the 2 spreadsheets on sharepoint's link for <b>Client's data</b> and downloads it to 'raw_table/'.
+After this the script searches for the 2 base spreadsheets in the directory './management_before_django/raw_table/'. If found the aplication follows up looking for attachments. If not, it uses the function 'robot_for_raw_table()' to search for the 2 spreadsheets on sharepoint's link for <b>Client's data</b> and downloads it to 'raw_table/'.
 
 <h4>management_before_django/</h4>
 Everything from this directory is runned by the module '/table_managements/scripts/tables_to_db.py'. This 3 module instances manages tables content (1 filter_table_column), inserts the result in a SQLite3 database (2 insert_table_to_db) and creates a Django module form this database (3 create_model_from_database).
