@@ -88,10 +88,14 @@ At the end of it, the tables inside 'raw_table/' are deleted and a message is di
 "Application finished its process succesfully!"
 ```
 
+()
+
 The successful and unsuccessful reports' info are extracted and placed in a third report which is sent to sharepoint's Reports folder by Selenium.
 
 With the 'raw_table/' folder emptied the application will look for the 2 base spreadsheets in <b>Client's data</b> folder again when manually restarted. These 2 may have updated or new data.
-If the new base spreadsheets contain new data the application already have files to compare what is new and what is not and feed the 'edited_table/''s spreadsheet, which is not deleted at the end of a process, with new data.
+If the new base spreadsheets contain new data the application already have files to compare what is new and what is not and feed the 'edited_table/''s spreadsheet, which is not deleted at the end of a process*, with new data.
+
+* edited_table/ table constains data of sent and not sent emails. It is maintained to avoid email sent duplicity.
 
 <h3>When the month changes:</h3>
 This application is designed to operate at the beggining and during the month. When it changes something else must be done: in the application's folder there is a file named "DELETE_ME_BEFORE_FIRST_MONTH_OPERATION.txt" that must be deleted before starting the first process of the month. Its deletion will delete all the application's tables and its reports. More about that in [Applications behaviour by case](#applications-behaviour-by-case).
@@ -129,7 +133,7 @@ After this the script searches for the 2 base spreadsheets in the directory './m
 Everything from this directory is runned by the module '/table_managements/scripts/tables_to_db.py'. This 3 module instances manages tables content (1 filter_table_column), inserts the result in a SQLite3 database (2 insert_table_to_db) and creates a Django module form this database (3 create_model_from_database).
 
 <h5>1. filter_table_column:</h5>
-This module gathers all the functions that use <strong>OpenPyXL</strong> (check openpyxl and paths modules) to manipulate tables from 'raw_table/' and creates a third one to 'edited_table/' with new columns 'STATUS' and 'REFERENCES' and from it creates a <strong>Pandas</strong> dataframe.
+This module gathers all the functions that use <strong>OpenPyXL</strong> (check openpyxl and paths modules) to manipulate tables from 'raw_table/' and creates a third one to 'edited_table/' with new columns 'STATUS' (setting all lines to 'not sent') and 'REFERENCES' and from it creates a <strong>Pandas</strong> dataframe.
 
 <h5>2. insert_table_to_db:</h5>
 Takes the dataframe created above and inserts it in a SQLite3 database in 'db/'.
@@ -170,13 +174,20 @@ Because of the issue described above on Windows OS and Selenium's configuration 
 
 empty_download_directories (before Selenium tools are used this function is called to delete previous files downloaded the preventing system crashs)
 
-moving_files_from_virtual_dir (the downloaded files are moved from the default download dir to the desired one)
+moving_files_from_virtual_dir (the downloaded files are moved from the default download dir to the desired one. For instance, robot_for_attachments_downloads uses it to send downloaded files to attachments/ folder.)
 
 <h5>reports/:</h5>
 This folder stores the reports created during this application (sent and not sent) and the function join_reports creates a third one that is going to be uploaded by <b>robot_to_upload_files</b>.
 
 <h4>dj_project</h4>
+This directory is responsible by using robot 'robot_for_attachments_downloads', elaborating emails and attaching invoices, spreadsheets and bills to it and sending it to client, as well as feeding the reports for sent and not sent emails.
 
+It reads line by line from the models' Table. From each line it firstly reads the column 'STATUS' content. 
+
+If its content is set to "Not sent", the view will take the Table's row data and feed robot_for_attachments_downloads() with it, if made succesfully it will read the attachments and select the appropriate template for the email (the file that defines which one is selected is the 'bill').
+
+After that it takes info from the files' titles to feed the template. For instance, the year competency.
+With this new data all data extracted may be used in the email template.
 
 <h4>utils</h4>
 This directory stores functions and variables that are used throughout the application.
@@ -219,9 +230,8 @@ ERROR:
         Procedure:
             Process finished.
         When restart process:
-            Spreadsheet is maintaned;
             Spreadsheet downloaded remains;
-            Spreadsheet edited remains;
+            Spreadsheet edited remains; 
             Sent elements report remains;
             Not sent elements report deleted;
             Final report recriated.
@@ -231,7 +241,6 @@ ERROR:
             Final report sent to sharepoint;
             Process finished.
         When restart process:
-            Spreadsheet is maintaned;
             Downloaded spreadsheet remains;
             Edited spreadsheet remains;
             Sent elements report remains;
@@ -240,7 +249,7 @@ ERROR:
 
 IDEAL:
 
-    3. Process ended durante período faturamentos (will billings will come):
+    3. Process ended succesfully, but new invoices and bills will come during the month):
         Procedure:
             Final report sent to sharepoint;
             Delete downloaded spreadsheet;
@@ -256,8 +265,8 @@ IDEAL:
 
     4. Process ended (end of billings period - all billings sent OR MONTH TURN*):
         Procedure:
-            Apagar Spreadsheets;
-            Apagar relatórios;
+            Delete Spreadsheets;
+            Delete reports;
             Process finished.
         When restart process:
             Download spreadsheet;
