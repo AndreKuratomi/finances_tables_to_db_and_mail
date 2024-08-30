@@ -105,8 +105,6 @@ For deep information for how the app works read the chapter below:
 
 This chapter is made for developers and for everyone that really want to understand how the app works and may be configured.
 
-<h3>Summary process</h3>
-
 The application <b>'finances_tables_to_db_and_mail'</b> has 5 main directories:
 
 1. <b>management_before_django/:</b> stores modules and script responsible for manipulating the 2 base spreadsheets downloaded and SQLite3 database creation as well as the tables' folders.
@@ -181,7 +179,23 @@ This folder stores the reports created during this application (sent and not sen
 
 
 <h4>utils</h4>
+This directory stores functions and variables that are used throughout the application.
 
+The functions/ has only 3:
+
+do_we_have_something_to_delete (used to search and delete not anymore desired content)
+path_length (used to check if there are one or more tables in the path selected)
+do_we_have_model (used to solve issue of django model)
+
+<h5>path_length:</h5>
+Function used in 'run_everything_here' to check if there are tables in raw_table/ or not and if not download them and also in 'filter_table_column' to check if the new third table created from 'raw_table/' needs to be compared to the 'edited_table/' one.
+
+<h5>do_we_have_model:</h5>
+
+(This function was created to solve an issue of django model: as at the time of this development sometimes the model was deleted during the process this function was created to replaced it in this case avoiding developer's msnuslsupport.)
+
+
+All of the variables/ files were made to avoid 'visual pollution' in the code. For instance, "os.getenv("EMAIL_HOST_USER")" is simply imported as "user_email"
 
 <h4>tests</h4>
 
@@ -193,9 +207,6 @@ If found, they are downloaded one by one on the directory './finances_table_to_d
 
 When not found, the application follows up looking for other attachments.
 
-<h3>Reports</h3>
-
-The found and not found attachments are registered in text files at './finances_table_to_db_and_mail/robot_sharepoint/reports/'. When the process is ended or interrupted it is automatically created a a third text file that gathers the first two. This third text file is sent to sharepoint as report of the operaion even if it is not finalized.
 
 ## Application behaviour by case:
 
