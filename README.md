@@ -189,6 +189,8 @@ If its content is set to "Not sent", the view will take the Table's row data and
 After that it takes info from the files' titles to feed the template. For instance, the year competency.
 With this new data all data extracted may be used in the email template.
 
+If succesfully sent the view will update the Table 'status' column to "Sent".
+
 <h4>utils</h4>
 This directory stores functions and variables that are used throughout the application.
 
@@ -211,13 +213,7 @@ All of the variables/ files were made to avoid 'visual pollution' in the code. F
 
 <h4>tests</h4>
 
-
-<h3>Attachments</h3>
-
-To obtain them, the application uses the lib <strong>Selenium</strong> for searching for attachments by CNPJ and NFE on <b>sharepoint</b>. 
-If found, they are downloaded one by one on the directory './finances_table_to_db_and_mail/robot_sharepoint/attachments/'. The attachments are read with './finances_table_to_db_and_mail/dj_project/filter_tables/views.py' and according to the attachments amount the appropriate template is chosen for the email body in './finances_table_to_db_and_mail/dj_project/filter_tables/templates/'.
-
-When not found, the application follows up looking for other attachments.
+(COMING SOON!)
 
 
 ## Application behaviour by case:
