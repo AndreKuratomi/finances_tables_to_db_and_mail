@@ -181,7 +181,8 @@ This folder stores the reports created during this application (sent and not sen
 <h4>utils</h4>
 This directory stores functions and variables that are used throughout the application.
 
-The functions/ has only 3:
+<h5>functions/</h5>
+There are only 3:
 
 do_we_have_something_to_delete (used to search and delete not anymore desired content)
 path_length (used to check if there are one or more tables in the path selected)
