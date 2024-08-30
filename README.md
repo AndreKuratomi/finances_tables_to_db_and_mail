@@ -187,14 +187,14 @@ do_we_have_something_to_delete (used to search and delete not anymore desired co
 path_length (used to check if there are one or more tables in the path selected)
 do_we_have_model (used to solve issue of django model)
 
-<h5>path_length:</h5>
+<h6>path_length:</h6>
 Function used in 'run_everything_here' to check if there are tables in raw_table/ or not and if not download them and also in 'filter_table_column' to check if the new third table created from 'raw_table/' needs to be compared to the 'edited_table/' one.
 
-<h5>do_we_have_model:</h5>
+<h6>do_we_have_model:</h6>
 
 (This function was created to solve an issue of django model: as at the time of this development sometimes the model was deleted during the process this function was created to replaced it in this case avoiding developer's msnuslsupport.)
 
-
+<h5>variables/:</h5>
 All of the variables/ files were made to avoid 'visual pollution' in the code. For instance, "os.getenv("EMAIL_HOST_USER")" is simply imported as "user_email"
 
 <h4>tests</h4>
