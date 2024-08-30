@@ -101,19 +101,40 @@ For deep information for how the app works read the chapter below:
 
 ## A detailed description
 
-This chapter is made for developers and for everyone that want to really understand how the app works and may be configured.
+This chapter is made for developers and for everyone that really want to understand how the app works and may be configured.
 
 <h3>Summary process</h3>
 
-The whole application can be runned at the root directory by the script './run_everything_here.py' or by the .bat file 'script_for_bat_file.bat'.
+The application <b>'finances_tables_to_db_and_mail'</b> has 5 main directories:
 
+1. <b>management_before_django/:</b> stores modules and script responsible for manipulating the 2 base spreadsheets downloaded and SQLite3 database creation as well as the tables' folders.
+2. <b>robot_sharepoint:</b> stores the three Selenium modules and its auxiliary modules, the attachments and the reports folders.
+3. <b>dj_project:</b> stores the django project and its app filter_tables/.
+4. <b>utils:</b> stores auxiliary functions and variables.
+5. <b>tests:</b> stores tests for root variables using <strong>pytest</strong>.
+
+And everything is runned with the script './run_everything_here.py':
+
+<h4>run_everything_here.py</h4>
+
+The whole application can be runned at the root directory by the script './run_everything_here.py' or by the .bat file 'script_for_bat_file.bat' that runs it.
+
+This script runs all the application by running the module <b>tables_to_db</b> and the django view <b>EmailAttachByTable</b>'s instance.
+
+But firstly the script looks for the file "DELETE_ME_BEFORE_FIRST_MONTH_OPERATION.txt" in the root dir. If not found, the script deletes all the tables present in the application and recreates the DELETE_ME file.
+
+After this the script searches for the 2 base spreadsheets in the directory './finances_table_to_db_and_mail/management_before_django/raw_table/'. If found the aplication follows up looking for attachments. If not, it uses the function 'robot_for_raw_table()' to search for the 2 spreadsheets on sharepoint's link for <b>Client's data</b> and downloads it to 'raw_table/'.
+
+<h4>management_before_django/</h4>
+The first module used is 
 It firstly inserts in the given table in 'raw_table/' a 'STATUS' column using <strong>OpenPyXl</strong> and saves it in 'edited_table/', after that it transforms the edited spreadsheet into a dataframe using <strong>Pandas</strong> and it is filtered by specific columns and inserts a new column 'ID'. 
 
 After manipulation the dataframe is inserted in a database <strong>SQLite3</strong> in 'db/' and transformed into a <strong>Django</strong> model using the command <strong>inspectdb</strong>. This makes <strong>Django</strong> able to use the container <strong>EmailMessage</strong> for attachimng and sending emails to clients. 
 
-<h3>Spreadsheet</h3>
-
-The aplication firstly searches for a spreadsheet in the directory './finances_table_to_db_and_mail/management_before_django/raw_table'. If found the aplication follows up looking for attachments. If not, it uses <strong>Selenium</strong> to search for the spreadsheet on sharepoint link.
+<h4>robot_sharepoint</h4>
+<h4>dj_project</h4>
+<h4>utils</h4>
+<h4>tests</h4>
 
 <h3>Attachments</h3>
 
