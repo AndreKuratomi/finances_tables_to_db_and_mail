@@ -126,10 +126,16 @@ But firstly the script looks for the file "DELETE_ME_BEFORE_FIRST_MONTH_OPERATIO
 After this the script searches for the 2 base spreadsheets in the directory './finances_table_to_db_and_mail/management_before_django/raw_table/'. If found the aplication follows up looking for attachments. If not, it uses the function 'robot_for_raw_table()' to search for the 2 spreadsheets on sharepoint's link for <b>Client's data</b> and downloads it to 'raw_table/'.
 
 <h4>management_before_django/</h4>
-The first module used is 
-It firstly inserts in the given table in 'raw_table/' a 'STATUS' column using <strong>OpenPyXl</strong> and saves it in 'edited_table/', after that it transforms the edited spreadsheet into a dataframe using <strong>Pandas</strong> and it is filtered by specific columns and inserts a new column 'ID'. 
+Everything from this directory is runned by the module '/table_managements/scripts/tables_to_db.py'. This 3 module instances manages tables content (1 filter_table_column), inserts the result in a SQLite3 database (2 insert_table_to_db) and creates a Django module form this database (3 create_model_from_database).
 
-After manipulation the dataframe is inserted in a database <strong>SQLite3</strong> in 'db/' and transformed into a <strong>Django</strong> model using the command <strong>inspectdb</strong>. This makes <strong>Django</strong> able to use the container <strong>EmailMessage</strong> for attachimng and sending emails to clients. 
+<h5>1. filter_table_column</h5>
+This module gathers all the functions that use <strong>OpenPyXL</strong> (check openpyxl and paths modules) to manipulate tables from 'raw_table/' and creates a third one to 'edited_table/' with new columns 'STATUS' and 'REFERENCES' and from it creates a <strong>Pandas</strong> dataframe.
+
+<h5>2. insert_table_to_db</h5>
+Takes the dataframe created above and inserts it in a SQLite3 database in 'db/'.
+
+<h5>3. create_model_from_database</h5>
+From the database above creates a <b>Django</b> model using <strong>inspectdb</strong> command and inserts a new column 'id' to it. This makes <strong>Django</strong> able to use the container <strong>EmailMessage</strong> for creationg, attaching files and sending emails to clients. 
 
 <h4>robot_sharepoint</h4>
 <h4>dj_project</h4>
