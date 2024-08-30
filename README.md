@@ -146,10 +146,10 @@ This directory was made to store the functions that use <strong>Selenium</strong
 There are 4 'robots' in this directory:
 
 
-robot_for_contacts_downloads (for searching and downloading spreadsheet that has clients' contacts' data)
-robot_for_database_downloads (idem for spreadsheet that has clients' other data - e.g. due date, net amount to pay, etc)
-robot_for_attachments_downloads (idem for files that will be attached to client's email)
-robot_to_upload_files (for final reports)
+<b>robot_for_contacts_downloads</b> (for searching and downloading spreadsheet that has clients' contacts' data)
+<b>robot_for_database_downloads</b> (idem for spreadsheet that has clients' other data - e.g. due date, net amount to pay, etc)
+<b>robot_for_attachments_downloads</b> (idem for files that will be attached to client's email)
+<b>robot_to_upload_files</b> (for final reports)
 
 All of these 4 'robots' need to login to sharepoint using email and password provided in <b>.env</b>, but they may have different approaches:
 
@@ -175,6 +175,7 @@ empty_download_directories (before Selenium tools are used this function is call
 moving_files_from_virtual_dir (the downloaded files are moved from the default download dir to the desired one)
 
 <h5>reports/:</h5>
+This folder stores the reports created during this application (sent and not sent) and the function join_reports creates a third one that is going to be uploaded by <b>robot_to_upload_files</b>.
 
 <h4>dj_project</h4>
 
