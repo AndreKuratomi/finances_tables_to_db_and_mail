@@ -145,6 +145,7 @@ This directory was made to store the functions that use <strong>Selenium</strong
 <h5>robots/:</h5>
 There are 4 'robots' in this directory:
 
+
 robot_for_contacts_downloads (for searching and downloading spreadsheet that has clients' contacts' data)
 robot_for_database_downloads (idem for spreadsheet that has clients' other data - e.g. due date, net amount to pay, etc)
 robot_for_attachments_downloads (idem for files that will be attached to client's email)
@@ -170,6 +171,7 @@ This 'robot' takes the final report made after the end of the app's process and 
 Because of the issue described above on Windows OS and Selenium's configuration for 'webdriver.Edge' the download_directories_management module was made. It has  two functions:
 
 empty_download_directories (before Selenium tools are used this function is called to delete previous files downloaded the preventing system crashs)
+
 moving_files_from_virtual_dir (the downloaded files are moved from the default download dir to the desired one)
 
 <h5>reports/:</h5>
