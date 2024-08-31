@@ -378,7 +378,7 @@ reg.exe add HKLM\SYSTEM\CurrentControlSet\Control\FileSystem /v LongPathsEnabled
 ```
 <br>
 
-<h3>3. And run the aplication:</h3>
+<h3>3. Open the application on your IDE:</h3>
 
 ```
 code .
@@ -412,7 +412,7 @@ DOWNLOAD_DIRECTORY=download_directory
 RAW_TABLE_DIRECTORY=raw_table_url
 ```
 
-Obs: Do not share info from .env file. It is already mentioned in .gitignore for not being pushed to the repo.
+Obs: Do not share info from .env file. It is already mentioned in <b>.gitignore</b> for not being pushed to the repo.
 
 <br>
 
