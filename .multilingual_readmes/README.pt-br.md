@@ -243,7 +243,7 @@ DOWNLOAD_DIRECTORY=download_directory
 RAW_TABLE_DIRECTORY=raw_table_url
 ```
 
-Obs: As informações contidas no arquivo .env não devem ser compartilhadas. O arquivo já consta no .gitignore para não ser subido no repositório.
+Obs: As informações contidas no arquivo .env não devem ser compartilhadas. O arquivo já consta no .gitignore para não constar no repositório github.
 
 <br>
 
