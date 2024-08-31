@@ -224,7 +224,7 @@ code .
 ```
 <br>
 
-<h3>4. Create <b>.env</b> file:</h3>
+<h3>4. Criar o arquivo <b>.env</b> no diretório raiz:</h3>
 
 ./
 ```
