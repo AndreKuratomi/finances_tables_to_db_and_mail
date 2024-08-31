@@ -217,14 +217,7 @@ reg.exe add HKLM\SYSTEM\CurrentControlSet\Control\FileSystem /v LongPathsEnabled
 ```
 <br>
 
-<h3>3. E rodar a aplicação:</h3>
-
-```
-code .
-```
-<br>
-
-<h3>4. Criar o arquivo <b>.env</b> no diretório raiz:</h3>
+<h3>3. Criar o arquivo <b>.env</b> no diretório raiz:</h3>
 
 ./
 ```
@@ -251,6 +244,27 @@ RAW_TABLE_DIRECTORY=raw_table_url
 ```
 
 Obs: As informações contidas no arquivo .env não devem ser compartilhadas. O arquivo já consta no .gitignore para não ser subido no repositório.
+
+<br>
+
+<h3>4. Abrir a aplicação no seu IDE:</h3>
+
+```
+code .
+```
+<br>
+
+<h3>4. E rodar a aplicação:</h3>
+
+LINUX:
+```
+python3 run_everything_here.py
+```
+
+WINDOWS:
+```
+py  run_everything_here.py
+```
 
 <br>
 
