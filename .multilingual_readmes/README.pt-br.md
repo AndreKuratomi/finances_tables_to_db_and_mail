@@ -161,7 +161,14 @@ cd finances_tables_to_db_and_mail
 
 <h3>2. Após feito o clone do repositório, instalar:</h3>
 
-<h4>O ambiente virtual e atualizar suas dependências com o seguinte comando:</h4>
+<h4>Ative o seu ambiente virtual* com o comando:</h4>
+
+*É interessante seguir esta prática porque diferentes projetos exigem diferentes dependências. Um ambiente virtual nada mais é do que um ambiente separado da sua máquina. Caso contrário, a máquina do usuário pode se encher de dependências que serão utilizadas apenas em um único projeto.
+
+LINUX:
+```
+source/venv/bin/activate
+```
 
 LINUX:
 ```
